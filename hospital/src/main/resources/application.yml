@@ -1,0 +1,12 @@
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/hospital
+    username: postgres
+    password: postgres
+    driver:
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+      show-sql: true
