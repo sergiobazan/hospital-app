@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -24,7 +24,7 @@ public class Patient {
     private String phone;
     @Enumerated(EnumType.STRING)
     private Sex sex;
-    private LocalDateTime birthDate;
+    private LocalDate birthDate;
 
     @ManyToOne
     @JoinColumn(name = "hospital_id")
@@ -34,7 +34,7 @@ public class Patient {
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Appointment> appointments = new HashSet<>();
 
-    private Patient(String name, String phone, Sex sex, LocalDateTime birthDate, Hospital hospital) {
+    private Patient(String name, String phone, Sex sex, LocalDate birthDate, Hospital hospital) {
         this.name = name;
         this.phone = phone;
         this.sex = sex;
@@ -42,7 +42,7 @@ public class Patient {
         this.hospital = hospital;
     }
 
-    public static Patient Create(String name, String phone, Sex sex, LocalDateTime birthDate, Hospital hospital) {
+    public static Patient Create(String name, String phone, Sex sex, LocalDate birthDate, Hospital hospital) {
         return new Patient(name, phone, sex, birthDate, hospital);
     }
 }
