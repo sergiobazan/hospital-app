@@ -33,4 +33,16 @@ public class Patient {
 
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Appointment> appointments = new HashSet<>();
+
+    private Patient(String name, String phone, Sex sex, LocalDateTime birthDate, Hospital hospital) {
+        this.name = name;
+        this.phone = phone;
+        this.sex = sex;
+        this.birthDate = birthDate;
+        this.hospital = hospital;
+    }
+
+    public static Patient Create(String name, String phone, Sex sex, LocalDateTime birthDate, Hospital hospital) {
+        return new Patient(name, phone, sex, birthDate, hospital);
+    }
 }

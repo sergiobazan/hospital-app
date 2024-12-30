@@ -24,4 +24,12 @@ public class Specialty {
     @OneToMany(mappedBy = "specialty")
     @JsonIgnore
     private List<Doctor> doctors = new ArrayList<>();
+
+    private Specialty(String name) {
+        this.name = name;
+    }
+
+    public static Specialty Create(String name) {
+        return new Specialty(name);
+    }
 }

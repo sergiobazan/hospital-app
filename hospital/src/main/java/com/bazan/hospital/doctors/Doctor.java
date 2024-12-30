@@ -34,4 +34,15 @@ public class Doctor {
 
     @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Appointment> appointments = new HashSet<>();
+
+    private Doctor(String name, String phone, Hospital hospital, Specialty specialty) {
+        this.name = name;
+        this.phone = phone;
+        this.hospital = hospital;
+        this.specialty = specialty;
+    }
+
+    public static Doctor Create(String name, String phone, Hospital hospital, Specialty specialty) {
+        return new Doctor(name, phone, hospital, specialty);
+    }
 }

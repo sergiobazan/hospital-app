@@ -35,17 +35,16 @@ public class Hospital {
     @OneToMany(mappedBy = "hospital", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Patient> patients = new ArrayList<>();
 
+    private Hospital(String name, String address, String phone, String email, String logo) {
+        this.name = name;
+        this.address = address;
+        this.phone = phone;
+        this.email = email;
+        this.logo = logo;
+    }
 
+    public static Hospital Create(String name, String address, String phone, String email, String logo) {
+        return new Hospital(name, address, phone, email, logo);
+    }
 }
 
-//private Hospital(String name, String address, String phone, String email, String logo) {
-//    this.name = name;
-//    this.address = address;
-//    this.phone = phone;
-//    this.email = email;
-//    this.logo = logo;
-//}
-//
-//public static Hospital Create(String name, String address, String phone, String email, String logo) {
-//    return new Hospital(name, address, phone, email, logo);
-//}
