@@ -16,7 +16,7 @@ public interface IAppointmentRepository extends JpaRepository<Appointment, Long>
                 END
             FROM Appointment a
             WHERE a.doctor.id = :doctorId
-            AND (:start < a.finish AND :finish > a.finish)
+            AND (:start < a.finish AND :finish > a.start)
             """)
     boolean isOverlapping(
             @Param("doctorId")
