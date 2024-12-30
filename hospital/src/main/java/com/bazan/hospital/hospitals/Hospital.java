@@ -2,6 +2,7 @@ package com.bazan.hospital.hospitals;
 
 import com.bazan.hospital.doctors.Doctor;
 import com.bazan.hospital.patients.Patient;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,9 +31,11 @@ public class Hospital {
     private String logo;
 
     @OneToMany(mappedBy = "hospital", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private Set<Doctor> doctors = new HashSet<>();
 
     @OneToMany(mappedBy = "hospital", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<Patient> patients = new ArrayList<>();
 
     private Hospital(String name, String address, String phone, String email, String logo) {

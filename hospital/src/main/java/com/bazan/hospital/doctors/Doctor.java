@@ -23,7 +23,7 @@ public class Doctor {
     private String name;
     private String phone;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "hospital_id")
     @JsonIgnore
     private Hospital hospital;

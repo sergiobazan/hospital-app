@@ -26,7 +26,7 @@ public class Patient {
     private Sex sex;
     private LocalDate birthDate;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "hospital_id")
     @JsonIgnore
     private Hospital hospital;

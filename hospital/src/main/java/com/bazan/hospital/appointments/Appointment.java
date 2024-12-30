@@ -22,12 +22,12 @@ public class Appointment {
     @Enumerated(EnumType.STRING)
     private AppointmentStatus status;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "doctor_id")
     @JsonIgnore
     private Doctor doctor;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "patient_id")
     @JsonIgnore
     private Patient patient;
@@ -39,7 +39,7 @@ public class Appointment {
         this.patient = patient;
     }
 
-    public static Appointment Create(LocalDateTime date, AppointmentStatus status, Doctor doctor, Patient patient) {
-        return new Appointment(date, status, doctor, patient);
+    public static Appointment Create(LocalDateTime date, Doctor doctor, Patient patient) {
+        return new Appointment(date, AppointmentStatus.PENDING, doctor, patient);
     }
 }
