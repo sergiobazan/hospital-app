@@ -1,0 +1,33 @@
+version: '3.1'
+
+services:
+  hospital-db:
+    image: postgres
+    container_name: hospital.db
+    environment:
+      - POSTGRES_DB=restaurant
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - ./.containers/data/db:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+    networks:
+      - backend
+
+  hospital-api:
+    image: hospitalj
+    container_name: hospital.api
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - '8080:8080'
+    depends_on:
+      - hospital-db
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: bridge
