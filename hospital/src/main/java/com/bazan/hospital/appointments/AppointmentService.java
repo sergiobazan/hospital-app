@@ -30,8 +30,13 @@ public class AppointmentService implements IAppointmentService {
                 .findById(appointmentRequest.patientId())
                 .orElseThrow(() -> new Exception("Patient not found"));
 
+        if (appointmentRepository.isOverlapping(doctor.getId(), appointmentRequest.start(), appointmentRequest.finish())) {
+            throw new Exception("The doctor already has an appointment during this time.");
+        }
+
         var appointment = Appointment.Create(
-                appointmentRequest.date(),
+                appointmentRequest.start(),
+                appointmentRequest.finish(),
                 doctor,
                 patient
         );
