@@ -5,6 +5,7 @@ import com.bazan.hospital.hospitals.DTOs.CreateHospitalResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RequiredArgsConstructor
 @RestController
@@ -28,10 +29,11 @@ public class HospitalController {
 
     @PostMapping
     public ResponseEntity<CreateHospitalResponse> create(
-            @RequestBody CreateHospitalRequest request
+            @ModelAttribute CreateHospitalRequest request,
+            @RequestParam("logo") MultipartFile logo
     ) {
         try {
-            var result = hospitalService.create(request);
+            var result = hospitalService.create(request, logo);
             var response = CreateHospitalResponse.Success(result);
             return ResponseEntity.ok(response);
         } catch (Exception e) {

@@ -1,16 +1,18 @@
 package com.bazan.hospital.hospitals;
 
+import com.bazan.hospital.config.IAmazonS3Service;
 import com.bazan.hospital.hospitals.DTOs.CreateHospitalRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 @RequiredArgsConstructor
 @Service
 public class HospitalService implements IHospitalService {
 
     private final IHospitalRepository hospitalRepository;
+    private final IAmazonS3Service amazonS3Service;
 
     @Override
     public Hospital getById(long id) throws Exception {
@@ -18,14 +20,17 @@ public class HospitalService implements IHospitalService {
                 .orElseThrow(() -> new Exception("Hospital not found"));
     }
 
+    @Transactional
     @Override
-    public Hospital create(CreateHospitalRequest hospitalRequest) {
+    public Hospital create(CreateHospitalRequest hospitalRequest, MultipartFile file) throws Exception {
+        String logoUrl = amazonS3Service.uploadFileUrl(file);
+
         var hospital = Hospital.Create(
                 hospitalRequest.name(),
                 hospitalRequest.address(),
                 hospitalRequest.phone(),
                 hospitalRequest.email(),
-                hospitalRequest.logo()
+                logoUrl
         );
         return hospitalRepository.save(hospital);
     }
