@@ -31,6 +31,11 @@ public class DoctorController {
         }
     }
 
+    @GetMapping("/specialties")
+    public ResponseEntity<List<Specialty>> getSpecialties() {
+        return ResponseEntity.ok(doctorService.getSpecialties());
+    }
+
     @PostMapping
     public ResponseEntity<CreateDoctorResponse> create(
             @RequestBody CreateDoctorRequest request

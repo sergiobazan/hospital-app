@@ -45,4 +45,9 @@ public class DoctorService implements IDoctorService {
     public List<Doctor> getAll() {
         return doctorRepository.findAll();
     }
+
+    @Override
+    public List<Specialty> getSpecialties() {
+        return specialtyRepository.findAll();
+    }
 }

@@ -8,4 +8,5 @@ public interface IDoctorService {
     Doctor getById(long id) throws Exception;
     Doctor create(CreateDoctorRequest doctorRequest) throws Exception;
     List<Doctor> getAll();
+    List<Specialty> getSpecialties();
 }
