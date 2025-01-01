@@ -35,6 +35,7 @@ public class AppointmentService implements IAppointmentService {
         }
 
         var appointment = Appointment.Create(
+                appointmentRequest.title(),
                 appointmentRequest.start(),
                 appointmentRequest.finish(),
                 doctor,

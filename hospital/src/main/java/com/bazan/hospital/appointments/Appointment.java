@@ -18,6 +18,7 @@ public class Appointment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    private String title;
     private LocalDateTime start;
     private LocalDateTime finish;
 
@@ -34,7 +35,15 @@ public class Appointment {
     @JsonIgnore
     private Patient patient;
 
-    private Appointment(LocalDateTime start, LocalDateTime finish, AppointmentStatus status, Doctor doctor, Patient patient) {
+    private Appointment(
+            String title,
+            LocalDateTime start,
+            LocalDateTime finish,
+            AppointmentStatus status,
+            Doctor doctor,
+            Patient patient
+    ) {
+        this.title = title;
         this.start = start;
         this.finish = finish;
         this.status = status;
@@ -42,12 +51,12 @@ public class Appointment {
         this.patient = patient;
     }
 
-    public static Appointment Create(LocalDateTime start, LocalDateTime finish, Doctor doctor, Patient patient) {
+    public static Appointment Create(String title, LocalDateTime start, LocalDateTime finish, Doctor doctor, Patient patient) {
 
         if (start.isAfter(finish) || finish.isBefore(start)) {
             throw new IllegalArgumentException("Invalid dates");
         }
 
-        return new Appointment(start, finish, AppointmentStatus.PENDING, doctor, patient);
+        return new Appointment(title, start, finish, AppointmentStatus.PENDING, doctor, patient);
     }
 }
