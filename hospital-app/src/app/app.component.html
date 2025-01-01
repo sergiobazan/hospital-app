@@ -1,14 +1,3 @@
 <app-side-bar></app-side-bar>
 
-<div class='flex min-h-full text-base'>
-  <div class='p-10 grow'>
-    <full-calendar *ngIf='calendarVisible()' [options]='calendarOptions()'>
-      <ng-template #eventContent let-arg>
-        <b>{{ arg.timeText }}</b>
-        <i>{{ arg.event.title }}</i>
-      </ng-template>
-    </full-calendar>
-  </div>
-</div>
-
 <router-outlet></router-outlet>
