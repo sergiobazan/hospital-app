@@ -1,1 +1,8 @@
-/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.fc { /* the calendar root */
+  max-width: 1100px;
+  margin: 0 auto;
+}
