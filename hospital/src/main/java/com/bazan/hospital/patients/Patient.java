@@ -31,7 +31,8 @@ public class Patient {
     @JsonIgnore
     private Hospital hospital;
 
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JsonIgnore
     private Set<Appointment> appointments = new HashSet<>();
 
     private Patient(String name, String phone, Sex sex, LocalDate birthDate, Hospital hospital) {

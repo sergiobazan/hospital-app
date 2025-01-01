@@ -28,11 +28,12 @@ public class Doctor {
     @JsonIgnore
     private Hospital hospital;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "specialty_id")
     private Specialty specialty;
 
-    @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JsonIgnore
     private Set<Appointment> appointments = new HashSet<>();
 
     private Doctor(String name, String phone, Hospital hospital, Specialty specialty) {

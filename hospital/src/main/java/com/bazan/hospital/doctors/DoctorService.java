@@ -5,6 +5,8 @@ import com.bazan.hospital.hospitals.IHospitalRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Service
 public class DoctorService implements IDoctorService {
@@ -37,5 +39,10 @@ public class DoctorService implements IDoctorService {
         );
 
         return doctorRepository.save(doctor);
+    }
+
+    @Override
+    public List<Doctor> getAll() {
+        return doctorRepository.findAll();
     }
 }

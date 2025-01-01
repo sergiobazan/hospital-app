@@ -6,12 +6,19 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/doctors")
 public class DoctorController {
 
     private final IDoctorService doctorService;
+
+    @GetMapping
+    public ResponseEntity<List<Doctor>> getAll() {
+        return ResponseEntity.ok(doctorService.getAll());
+    }
 
     @GetMapping("{id}")
     public ResponseEntity<CreateDoctorResponse> getById(@PathVariable("id") long id) {
