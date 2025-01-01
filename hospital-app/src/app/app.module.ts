@@ -10,6 +10,8 @@ import { DoctorsComponent } from './pages/doctors/doctors.component';
 import { AppointmentsComponent } from './pages/appointments/appointments.component';
 import { PatientsComponent } from './pages/patients/patients.component';
 import { HospitalComponent } from './pages/hospital/hospital.component';
+import { ModalComponent } from './components/modal/modal.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -18,13 +20,15 @@ import { HospitalComponent } from './pages/hospital/hospital.component';
     DoctorsComponent,
     AppointmentsComponent,
     PatientsComponent,
-    HospitalComponent
+    HospitalComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FullCalendarModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

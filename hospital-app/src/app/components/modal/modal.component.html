@@ -1,0 +1,25 @@
+<!-- Modal toggle button -->
+<ng-content select="[modal-trigger]"></ng-content>
+
+<!-- Main modal -->
+<div *ngIf="isVisible" id="default-modal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 flex items-center justify-center w-full h-full overflow-y-auto bg-black bg-opacity-50">
+  <div class="relative w-[480px] p-4">
+    <!-- Modal content -->
+    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+      <!-- Modal header -->
+      <div class="flex items-center justify-center p-4 border-b rounded-t dark:border-gray-600">
+        <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+          {{ title }}
+        </h3>
+      </div>
+      <!-- Modal body -->
+      <div class="p-4 md:p-5">
+        <ng-content select="[modal-body]"></ng-content>
+      </div>
+      <!-- Modal footer -->
+      <div class="flex items-center justify-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
+        <ng-content select="[modal-footer]"></ng-content>
+      </div>
+    </div>
+  </div>
+</div>

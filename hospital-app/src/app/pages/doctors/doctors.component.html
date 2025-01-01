@@ -1,5 +1,32 @@
-<main class='flex min-h-full text-base ml-64'>
+<main class='flex min-h-full text-base md:ml-64'>
   <div class='p-10 grow m-auto'>
+    <app-modal #modal title="Create Doctor">
+      <button modal-trigger (click)="modal.open()" class="m-3 border rounded-md border-blue-400 text-blue-400 font-semibold px-2 py-1">
+        New Doctor
+      </button>
+      <div modal-body>
+        <form class="p-4 w-[50%] mx-auto">
+          <div class="mb-3">
+            <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+            <input type="text" name="name" id="name" [(ngModel)]="doctorRequest.name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="John" required />
+          </div>
+          <div class="mb-3">
+            <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone</label>
+            <input type="text" id="phone" name="phone" [(ngModel)]="doctorRequest.phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ej: 980898777" required />
+          </div>
+          <div>
+            <label for="specialty" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Specialty</label>
+            <select id="specialty" name="specialty" [(ngModel)]="specialtySelcted" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+              <option *ngFor="let specialty of specialties" [value]="specialty.id">{{ specialty.name }}</option>
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="flex gap-4" modal-footer>
+        <button (click)="onSubmit(modal)" class="text-white bg-green-400 hover:bg-green-500 font-medium rounded-lg text-sm px-5 py-2.5">Create</button>
+        <button (click)="modal.close()" class="py-2.5 px-5 text-sm font-medium text-gray-900 bg-red-500 rounded-lg border border-gray-200 hover:bg-gray-100">Cancel</button>
+      </div>
+    </app-modal>
     <div class="relative overflow-x-auto">
       <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
           <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
