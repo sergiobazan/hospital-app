@@ -37,8 +37,8 @@
         </form>
       </div>
       <div class="flex gap-4" modal-footer>
-        <button (click)="onSubmit()">Create</button>
-        <button (click)="appointment_modal.close()">Cancel</button>
+        <button (click)="onSubmit()" class="px-4 py-1 hover:bg-white hover:text-green-400 font-semibold bg-green-500 text-white rounded border border-green-500">Create</button>
+        <button (click)="appointment_modal.close()" class="px-4 py-1 hover:bg-white hover:text-red-400 font-semibold bg-red-500 text-white rounded border border-red-500">Cancel</button>
       </div>
     </app-modal>
   </div>
