@@ -1,10 +1,45 @@
 <div class='flex min-h-full text-base md:ml-64'>
   <div class='p-10 grow'>
-    <full-calendar *ngIf='calendarVisible()' [options]='calendarOptions()'>
+    <full-calendar #calendar *ngIf='calendarVisible()' [options]='calendarOptions()'>
       <ng-template #eventContent let-arg>
         <b>{{ arg.timeText }}</b>
         <i>{{ arg.event.title }}</i>
       </ng-template>
     </full-calendar>
+
+    <app-modal #appointment_modal title="New Appointment">
+      <div modal-body>
+        <form>
+          <div class="mb-3">
+            <label for="title" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Title</label>
+            <input type="text" name="title" id="title" [(ngModel)]="appointmentRequest.title" required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="General check" required />
+          </div>
+          <div class="mb-3">
+            <label for="start" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Start</label>
+            <input type="datetime-local" name="start" id="start" [(ngModel)]="appointmentRequest.start" required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="General check" required />
+          </div>
+          <div class="mb-3">
+            <label for="finish" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Finish</label>
+            <input type="datetime-local" name="finish" id="finish" [(ngModel)]="appointmentRequest.finish" required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="General check" required />
+          </div>
+          <div class="mb-3">
+            <label for="doctor" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Doctor</label>
+            <select id="doctor" name="doctor" [(ngModel)]="doctorSelected" required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+              <option *ngFor="let doctor of doctors" [value]="doctor.id">{{ doctor.name }}</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="patient" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Patient</label>
+            <select id="patient" name="patient" [(ngModel)]="patientSelected" required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+              <option *ngFor="let patient of patients" [value]="patient.id">{{ patient.name }}</option>
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="flex gap-4" modal-footer>
+        <button (click)="onSubmit()">Create</button>
+        <button (click)="appointment_modal.close()">Cancel</button>
+      </div>
+    </app-modal>
   </div>
 </div>
