@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Response } from 'src/app/shared/Response';
 import { environment } from 'src/environments/environment';
-import { AppointmentResponse } from './models/AppointmentResponse';
+import { AppointmentDoctorPatientResponse, AppointmentResponse } from './models/AppointmentResponse';
 import { HospitalResponse } from '../hospital/models/HospitalResponse';
 import { Doctor } from '../doctors/models/Doctor';
 import { Patient } from '../patients/models/Patient';
@@ -34,5 +34,9 @@ private url = `${environment.apiUrl}/appointments`
 
   getAllPatients() {
     return this.http.get<Patient[]>(`${this.url}/patients`);
+  }
+
+  getDoctorAndPatientByAppointmentId(id: number) {
+    return this.http.get<AppointmentDoctorPatientResponse>(`${this.url}/${id}/doctor/patient`);
   }
 }

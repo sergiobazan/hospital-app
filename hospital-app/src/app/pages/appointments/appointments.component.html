@@ -1,4 +1,4 @@
-<div class='flex min-h-full text-base md:ml-64'>
+<div class='flex min-h-full text-base md:ml-[230px]'>
   <div class='p-10 grow'>
     <full-calendar #calendar *ngIf='calendarVisible()' [options]='calendarOptions()'>
       <ng-template #eventContent let-arg>
@@ -39,6 +39,20 @@
       <div class="flex gap-4" modal-footer>
         <button (click)="onSubmit()" class="px-4 py-1 hover:bg-white hover:text-green-400 font-semibold bg-green-500 text-white rounded border border-green-500">Create</button>
         <button (click)="appointment_modal.close()" class="px-4 py-1 hover:bg-white hover:text-red-400 font-semibold bg-red-500 text-white rounded border border-red-500">Cancel</button>
+      </div>
+    </app-modal>
+
+    <app-modal #appointment_info_modal>
+      <div modal-body>
+        <h2>{{ appointmentSelected?.title }}</h2>
+        <p>{{ appointmentSelected?.start?.toLocaleString() }}</p>
+        <p>{{ appointmentSelected?.finish?.toLocaleString() }}</p>
+        <p class="capitalize">{{ appointmentSelected?.status?.toLowerCase() }}</p>
+        <p>Doctor: {{ appointmentMembers?.doctor?.name }}</p>
+        <p>Patient {{ appointmentMembers?.patient?.name }}</p>
+      </div>
+      <div modal-footer>
+        <button (click)="appointment_info_modal.close()" class="px-4 py-1 hover:bg-white hover:text-red-400 font-semibold bg-red-500 text-white rounded border border-red-500">Close</button>
       </div>
     </app-modal>
   </div>

@@ -12,3 +12,19 @@ export enum AppointmentStatus {
   COMPLETED = 'COMPLETED',
   CANCELED = 'CANCELED'
 }
+
+export interface AppointmentDoctorPatientResponse {
+  doctor: {
+    id: number
+    name: string
+    phone: string
+    specialty: string
+  },
+  patient: {
+    id: number
+    name: string
+    birthDate: Date
+    phone: string
+    sex: string
+  }
+}

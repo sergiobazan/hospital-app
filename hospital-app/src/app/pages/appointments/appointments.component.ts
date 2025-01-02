@@ -10,6 +10,7 @@ import { Doctor } from '../doctors/models/Doctor';
 import { Patient } from '../patients/models/Patient';
 import { AppointmentRequest } from './models/AppointmentRequest';
 import { FullCalendarComponent } from '@fullcalendar/angular';
+import { AppointmentDoctorPatientResponse, AppointmentResponse } from './models/AppointmentResponse';
 
 @Component({
   selector: 'app-appointments',
@@ -33,7 +34,7 @@ export class AppointmentsComponent implements OnInit {
       right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
     },
     initialView: 'dayGridMonth',
-    initialEvents: [], // alternatively, use the `events` setting to fetch from a feed
+    initialEvents: [],
     weekends: true,
     editable: true,
     selectable: true,
@@ -59,8 +60,10 @@ export class AppointmentsComponent implements OnInit {
     start: new Date(),
     finish: new Date(),
   }
-  
+  appointmentSelected: AppointmentResponse | null = null;
+  appointmentMembers: AppointmentDoctorPatientResponse | null = null;
   @ViewChild('appointment_modal') appointmentModal!: ModalComponent;
+  @ViewChild('appointment_info_modal') appointmentInfoModal!: ModalComponent;
 
   constructor(private service: AppointmentsService, private changeDetector: ChangeDetectorRef) {
   }
@@ -69,16 +72,6 @@ export class AppointmentsComponent implements OnInit {
     this.getAllEvents();
     this.getDoctors();
     this.getPatients();
-  }
-
-  handleCalendarToggle() {
-    this.calendarVisible.update((bool) => !bool);
-  }
-
-  handleWeekendsToggle() {
-    this.calendarOptions.mutate((options) => {
-      options.weekends = !options.weekends;
-    });
   }
 
   handleDateSelect(selectInfo: DateSelectArg) {
@@ -100,9 +93,23 @@ export class AppointmentsComponent implements OnInit {
   }
 
   handleEventClick(clickInfo: EventClickArg) {
-    if (confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
-      clickInfo.event.remove();
+    this.appointmentInfoModal.open();
+    this.appointmentInfoModal.title = clickInfo.event.title;
+    this.getDoctorAndPatientForAppointmentId(parseInt(clickInfo.event.id));
+    this.appointmentSelected =  {
+      id: parseInt(clickInfo.event.id),
+      title: clickInfo.event.title,
+      start: clickInfo.event.start!,
+      finish: clickInfo.event.end!,
+      status: clickInfo.event.extendedProps['status']
     }
+  }
+
+  private getDoctorAndPatientForAppointmentId(id: number) {
+     this.service.getDoctorAndPatientByAppointmentId(id).subscribe({
+      next: (response) => this.appointmentMembers = response,
+      error: ({error}) => console.error(error)
+     })
   }
 
   handleEvents(events: EventApi[]) {
@@ -117,7 +124,10 @@ export class AppointmentsComponent implements OnInit {
           id: String(appointment.id),
           title: appointment.title,
           start: appointment.start,
-          end: appointment.finish
+          end: appointment.finish,
+          extendedProps: {
+            status: appointment.status
+          }
         }));
         this.calendarOptions.mutate((options) => {
           options.events = allEvents;
