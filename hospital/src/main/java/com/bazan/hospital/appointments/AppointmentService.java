@@ -1,10 +1,14 @@
 package com.bazan.hospital.appointments;
 
 import com.bazan.hospital.appointments.DTOs.CreateAppointmentRequest;
+import com.bazan.hospital.doctors.Doctor;
 import com.bazan.hospital.doctors.IDoctorRepository;
 import com.bazan.hospital.patients.IPatientRepository;
+import com.bazan.hospital.patients.Patient;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -43,5 +47,20 @@ public class AppointmentService implements IAppointmentService {
         );
 
         return appointmentRepository.save(appointment);
+    }
+
+    @Override
+    public List<Appointment> getAll() {
+        return appointmentRepository.findAll();
+    }
+
+    @Override
+    public List<Doctor> getAllDoctors() {
+        return doctorRepository.findAll();
+    }
+
+    @Override
+    public List<Patient> getAllPatients() {
+        return patientRepository.findAll();
     }
 }

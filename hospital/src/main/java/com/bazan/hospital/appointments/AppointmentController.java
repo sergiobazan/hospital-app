@@ -2,9 +2,13 @@ package com.bazan.hospital.appointments;
 
 import com.bazan.hospital.appointments.DTOs.CreateAppointmentRequest;
 import com.bazan.hospital.appointments.DTOs.CreateAppointmentResponse;
+import com.bazan.hospital.doctors.Doctor;
+import com.bazan.hospital.patients.Patient;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -26,6 +30,11 @@ public class AppointmentController {
         }
     }
 
+    @GetMapping
+    public ResponseEntity<List<Appointment>> getAll() {
+        return ResponseEntity.ok(this.appointmentService.getAll());
+    }
+
     @PostMapping
     public ResponseEntity<CreateAppointmentResponse> create(
             @RequestBody CreateAppointmentRequest request
@@ -38,5 +47,15 @@ public class AppointmentController {
             var response = CreateAppointmentResponse.Failure(e.getMessage());
             return ResponseEntity.badRequest().body(response);
         }
+    }
+
+    @GetMapping("/doctors")
+    public ResponseEntity<List<Doctor>> getAllDoctors() {
+        return ResponseEntity.ok(this.appointmentService.getAllDoctors());
+    }
+
+    @GetMapping("/patients")
+    public ResponseEntity<List<Patient>> getAllPatients() {
+        return ResponseEntity.ok(this.appointmentService.getAllPatients());
     }
 }
