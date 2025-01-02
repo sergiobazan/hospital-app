@@ -1,5 +1,6 @@
 package com.bazan.hospital.appointments;
 
+import com.bazan.hospital.appointments.DTOs.AppointmentDoctorPatientResponse;
 import com.bazan.hospital.appointments.DTOs.CreateAppointmentRequest;
 import com.bazan.hospital.appointments.DTOs.CreateAppointmentResponse;
 import com.bazan.hospital.doctors.Doctor;
@@ -25,6 +26,18 @@ public class AppointmentController {
             var appointment = appointmentService.getById(id);
             var response = CreateAppointmentResponse.Success(appointment);
             return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping("{id}/doctor/patient")
+    public ResponseEntity<AppointmentDoctorPatientResponse> getDoctorAndPatientById(
+            @PathVariable("id") long id
+    ) {
+        try {
+            var appointment = appointmentService.getDoctorAndPatientById(id);
+            return ResponseEntity.ok(appointment);
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }

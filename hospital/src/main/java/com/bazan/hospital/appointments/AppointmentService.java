@@ -1,8 +1,11 @@
 package com.bazan.hospital.appointments;
 
+import com.bazan.hospital.appointments.DTOs.AppointmentDoctorPatientResponse;
 import com.bazan.hospital.appointments.DTOs.CreateAppointmentRequest;
+import com.bazan.hospital.doctors.DTOs.DoctorDto;
 import com.bazan.hospital.doctors.Doctor;
 import com.bazan.hospital.doctors.IDoctorRepository;
+import com.bazan.hospital.patients.DTOS.PatientDto;
 import com.bazan.hospital.patients.IPatientRepository;
 import com.bazan.hospital.patients.Patient;
 import lombok.RequiredArgsConstructor;
@@ -62,5 +65,25 @@ public class AppointmentService implements IAppointmentService {
     @Override
     public List<Patient> getAllPatients() {
         return patientRepository.findAll();
+    }
+
+    @Override
+    public AppointmentDoctorPatientResponse getDoctorAndPatientById(long id) throws Exception {
+        var appointment = appointmentRepository.findById(id)
+                .orElseThrow(() -> new Exception("Appointment not found"));
+        var doctor = new DoctorDto(
+                appointment.getDoctor().getId(),
+                appointment.getDoctor().getName(),
+                appointment.getDoctor().getPhone(),
+                appointment.getDoctor().getSpecialty().getName()
+        );
+        var patient = new PatientDto(
+          appointment.getPatient().getId(),
+          appointment.getPatient().getName(),
+          appointment.getPatient().getBirthDate(),
+          appointment.getPatient().getPhone(),
+          appointment.getPatient().getSex().name()
+        );
+        return new AppointmentDoctorPatientResponse(doctor, patient);
     }
 }

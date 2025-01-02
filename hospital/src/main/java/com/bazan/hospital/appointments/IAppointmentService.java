@@ -1,5 +1,6 @@
 package com.bazan.hospital.appointments;
 
+import com.bazan.hospital.appointments.DTOs.AppointmentDoctorPatientResponse;
 import com.bazan.hospital.appointments.DTOs.CreateAppointmentRequest;
 import com.bazan.hospital.doctors.Doctor;
 import com.bazan.hospital.patients.Patient;
@@ -12,4 +13,5 @@ public interface IAppointmentService {
     List<Appointment> getAll();
     List<Doctor> getAllDoctors();
     List<Patient> getAllPatients();
+    AppointmentDoctorPatientResponse getDoctorAndPatientById(long id) throws Exception;
 }
