@@ -5,6 +5,8 @@ import com.bazan.hospital.patients.DTOS.CreatePatientRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Service
 public class PatientService implements IPatientService {
@@ -33,5 +35,10 @@ public class PatientService implements IPatientService {
         );
 
         return patientRepository.save(patient);
+    }
+
+    @Override
+    public List<Patient> getAll() {
+        return patientRepository.findAll();
     }
 }

@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/patients")
@@ -36,5 +38,10 @@ public class PatientController {
             var response = CreatePatientResponse.Failure(e.getMessage());
             return ResponseEntity.badRequest().body(response);
         }
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Patient>> getAll() {
+        return ResponseEntity.ok(patientService.getAll());
     }
 }
