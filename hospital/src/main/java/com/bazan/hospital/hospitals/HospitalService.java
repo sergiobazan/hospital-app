@@ -34,4 +34,23 @@ public class HospitalService implements IHospitalService {
         );
         return hospitalRepository.save(hospital);
     }
+
+    @Override
+    public void update(long id, CreateHospitalRequest hospitalRequest, MultipartFile logo) throws Exception {
+        var hospital = hospitalRepository.findById(id)
+                .orElseThrow(() -> new Exception("Hospital not found"));
+
+        String logoUrl = hospital.getLogo();
+
+        if (!logo.isEmpty()) {
+            logoUrl = amazonS3Service.uploadFileUrl(logo);
+        }
+        hospital.setName(hospitalRequest.name());
+        hospital.setEmail(hospitalRequest.email());
+        hospital.setAddress(hospitalRequest.address());
+        hospital.setPhone(hospitalRequest.phone());
+        hospital.setLogo(logoUrl);
+
+        hospitalRepository.save(hospital);
+    }
 }

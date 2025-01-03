@@ -41,4 +41,22 @@ public class HospitalController {
             return ResponseEntity.badRequest().body(response);
         }
     }
+
+    @PutMapping("{id}")
+    public ResponseEntity<?> update(
+            @PathVariable("id") long id,
+            @ModelAttribute CreateHospitalRequest hospitalRequest,
+            @RequestParam("logo") MultipartFile logo
+    ) {
+        try {
+            hospitalService.update(id, hospitalRequest, logo);
+            return ResponseEntity.ok(new Object() {
+                public final boolean success = true;
+                public final String message = "updated successfully";
+            });
+        } catch (Exception e) {
+            var response = CreateHospitalResponse.Failure(e.getMessage());
+            return ResponseEntity.badRequest().body(response);
+        }
+    }
 }
