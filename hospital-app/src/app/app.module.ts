@@ -12,6 +12,8 @@ import { PatientsComponent } from './pages/patients/patients.component';
 import { HospitalComponent } from './pages/hospital/hospital.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { FormsModule } from '@angular/forms';
+import { HomeComponent } from './pages/home/home.component';
+import { NgChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -21,14 +23,16 @@ import { FormsModule } from '@angular/forms';
     AppointmentsComponent,
     PatientsComponent,
     HospitalComponent,
-    ModalComponent
+    ModalComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FullCalendarModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    NgChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
