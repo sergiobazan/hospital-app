@@ -1,5 +1,69 @@
-<main class='flex min-h-full text-base ml-64'>
-  <div class='p-10 grow m-auto'>
-    <h1>Hospital page</h1>
-  </div>
+<main class="flex flex-col min-h-screen bg-gray-50 ml-64">
+  <section class="flex mt-10">
+    <div class="p-10 grow m-auto max-w-4xl bg-white shadow-lg rounded-lg">
+      <!-- Header -->
+      <div class="text-center mb-8">
+        <h1 class="text-3xl text-blue-800 font-extrabold mb-4">{{ hospital?.name }}</h1>
+        <p class="text-lg font-medium text-gray-600">Discover the details of our hospital</p>
+      </div>
+  
+      <!-- Information Section -->
+      <div class="space-y-6">
+        <!-- Address -->
+        <div class="flex items-start gap-4 border-b pb-4">
+          <span class="text-blue-600 text-xl font-bold">📍 Address:</span>
+          <p class="text-lg text-gray-700">{{ hospital?.address }}</p>
+        </div>
+  
+        <!-- Phone -->
+        <div class="flex items-start gap-4 border-b pb-4">
+          <span class="text-blue-600 text-xl font-bold">📞 Phone:</span>
+          <p class="text-lg text-gray-700">{{ hospital?.phone }}</p>
+        </div>
+  
+        <!-- Email -->
+        <div class="flex items-start gap-4">
+          <span class="text-blue-600 text-xl font-bold">✉️ Email:</span>
+          <p class="text-lg text-gray-700">{{ hospital?.email }}</p>
+        </div>
+      </div>
+  
+      <!-- Logo -->
+      <div class="flex justify-center mt-8">
+        <img [src]="hospital?.logo" [alt]="hospital?.name" class="w-48 h-auto rounded-lg shadow-md">
+      </div>
+    </div>
+  </section>
+  <button modal-trigger (click)="hospital_modal.open()" class="mx-auto my-8 px-4 py-1 hover:bg-white hover:text-blue-400 font-semibold bg-blue-500 text-white rounded border border-blue-500">
+    Edit Hospital
+  </button>
+  <app-modal #hospital_modal title="Edit hospital">
+    <form modal-body>
+      <div class="mb-3">
+        <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+        <input type="text" name="name" id="name" [(ngModel)]="hospitalRequest.name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="John Cena" required />
+      </div>
+      <div class="mb-3">
+        <label for="address" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Address</label>
+        <input type="text" name="address" id="address" [(ngModel)]="hospitalRequest.address" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="John Cena" required />
+      </div>
+      <div class="mb-3">
+        <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone</label>
+        <input type="text" name="phone" id="phone" [(ngModel)]="hospitalRequest.phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="John Cena" required />
+      </div>
+      <div class="mb-3">
+        <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+        <input type="email" name="email" id="email" [(ngModel)]="hospitalRequest.email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="John Cena" required />
+      </div>
+      <div class="mb-3">
+        <label for="logo" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Logo</label>
+        <input type="file" name="logo" id="logo" (change)="onFileChange($event)" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="John Cena" required />
+      </div>
+    </form>
+    <div modal-footer class="flex items-center gap-8">
+      <button (click)="onEditHospital(hospital_modal)" class="px-4 py-1 hover:bg-white hover:text-green-400 font-semibold bg-green-500 text-white rounded border border-green-500">Create</button>
+      <button (click)="hospital_modal.close()" class="px-4 py-1 hover:bg-white hover:text-red-400 font-semibold bg-red-500 text-white rounded border border-red-500">Cancel</button>
+    </div>
+  </app-modal>
 </main>
+

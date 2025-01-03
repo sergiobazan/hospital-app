@@ -3,5 +3,4 @@ export interface HospitalRequest {
   address: string
   phone: string
   email: string
-  logo: File
 }

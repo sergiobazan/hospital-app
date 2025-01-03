@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { HospitalRequest } from './models/HospitalRequest';
 import { Response } from 'src/app/shared/Response';
 import { HospitalResponse } from './models/HospitalResponse';
 
@@ -17,7 +16,11 @@ export class HospitalService {
     return this.http.get<Response<HospitalResponse>>(`${this.url}/${id}`);
   }
 
-  createHospital(hospital: HospitalRequest) {
+  createHospital(hospital: FormData) {
     return this.http.post<Response<HospitalResponse>>(`${this.url}`, hospital);
+  }
+
+  updateHospital(id: number, hospital: FormData) {
+    return this.http.put<string>(`${this.url}/${id}`, hospital);
   }
 }

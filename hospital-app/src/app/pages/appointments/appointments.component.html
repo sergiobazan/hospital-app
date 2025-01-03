@@ -44,12 +44,12 @@
 
     <app-modal #appointment_info_modal>
       <div modal-body>
-        <h2>{{ appointmentSelected?.title }}</h2>
-        <p>{{ appointmentSelected?.start?.toLocaleString() }}</p>
-        <p>{{ appointmentSelected?.finish?.toLocaleString() }}</p>
-        <p class="capitalize">{{ appointmentSelected?.status?.toLowerCase() }}</p>
-        <p>Doctor: {{ appointmentMembers?.doctor?.name }}</p>
-        <p>Patient {{ appointmentMembers?.patient?.name }}</p>
+        <p class="text-white text-lg">Doctor: {{ appointmentMembers?.doctor?.name }}</p>
+        <p class="text-white text-lg">Patient {{ appointmentMembers?.patient?.name }}</p>
+        <p class="text-white text-lg">Topic: {{ appointmentSelected?.title }}</p>
+        <p class="text-white text-lg">Starts At: {{ appointmentSelected?.start?.toLocaleString() }}</p>
+        <p class="text-white text-lg">Ends At: {{ appointmentSelected?.finish?.toLocaleString() }}</p>
+        <p class="capitalize text-white text-lg">Status: {{ appointmentSelected?.status?.toLowerCase() }}</p>
       </div>
       <div modal-footer>
         <button (click)="appointment_info_modal.close()" class="px-4 py-1 hover:bg-white hover:text-red-400 font-semibold bg-red-500 text-white rounded border border-red-500">Close</button>
